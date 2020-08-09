@@ -2,6 +2,7 @@ import SwiftyJSON
 import Alamofire
 import RealmSwift
 
+
 enum JsonError: Error {
     case responseError
 }
@@ -19,15 +20,15 @@ class Requests {
     // MARK: - пользователи
     
     func getMyFriends(handler: @escaping (Result<[UserRealm], Error>) -> Void) {
-            customUrl = "friends.get"
-            let fullUrl = baseUrl + customUrl
-            let parameters: Parameters = [
-                "access_token": accessToken,
-                "v": apiVersion,
-                "user_id": "\(Session.instance.userId)",
-                "fields": "photo_100, nickname",
-                "count": "50",
-            ]
+        customUrl = "friends.get"
+        let fullUrl = baseUrl + customUrl
+        let parameters: Parameters = [
+            "access_token": accessToken,
+            "v": apiVersion,
+            "user_id": "\(Session.instance.userId)",
+            "fields": "photo_100, nickname",
+            "count": "50",
+        ]
         
         AF.request(fullUrl,
                    method: .get,
@@ -47,7 +48,7 @@ class Requests {
                     handler(.failure(error))
                 }
             })
-        }
+    }
     
     func getUsersInfo(ids: String, completion: @escaping (_ users: [User]) -> ()) {
         customUrl = "users.get"
@@ -77,23 +78,23 @@ class Requests {
         ]
         
         AF.request(fullUrl,
-               method: .get,
-               parameters: parameters)
-        .validate()
-        .responseData(completionHandler: { responseData in
-            guard let data = responseData.data else {
-                handler(.failure(JsonError.responseError))
-                return
-            }
-            let decoder = JSONDecoder()
-            do {
-                let requestResponse = try decoder.decode(UserRealmResponse.self, from: data)
-                RealmHelper.ask.saveObjects(requestResponse.response.items)
-                handler(.success(requestResponse.response.items))
-            } catch {
-                handler(.failure(error))
-            }
-        })
+                   method: .get,
+                   parameters: parameters)
+            .validate()
+            .responseData(completionHandler: { responseData in
+                guard let data = responseData.data else {
+                    handler(.failure(JsonError.responseError))
+                    return
+                }
+                let decoder = JSONDecoder()
+                do {
+                    let requestResponse = try decoder.decode(UserRealmResponse.self, from: data)
+                    RealmHelper.ask.saveObjects(requestResponse.response.items)
+                    handler(.success(requestResponse.response.items))
+                } catch {
+                    handler(.failure(error))
+                }
+            })
     }
     
     
@@ -115,30 +116,30 @@ class Requests {
         AF.request(fullUrl,
                    method: .get,
                    parameters: parameters)
-                   .validate()
-                   .responseData(completionHandler: { response in
-            guard let json = try? JSON(response.data) else {
+            .validate()
+            .responseData(completionHandler: { response in
+                guard let json = try? JSON(response.data) else {
                     handler(.failure(JsonError.responseError))
                     return
                 }
-            let items = json["response"]["items"].arrayValue
-            var photos = [PhotoRealm]()
-            for item in items {
-                let photo = PhotoRealm()
-                photo.id = item["id"].intValue
-                photo.ownerId = item["owner_id"].intValue
-                photo.url = item["sizes"][3]["url"].stringValue
-                photo.isLikedByMe = item["likes"]["user_likes"].boolValue
-                photo.likesCount = item["likes"]["count"].intValue
-                photos.append(photo)
-        }
-                    RealmHelper.ask.saveObjects(photos)
-                    handler(.success(photos))
-    })
+                let items = json["response"]["items"].arrayValue
+                var photos = [PhotoRealm]()
+                for item in items {
+                    let photo = PhotoRealm()
+                    photo.id = item["id"].intValue
+                    photo.ownerId = item["owner_id"].intValue
+                    photo.url = item["sizes"][3]["url"].stringValue
+                    photo.isLikedByMe = item["likes"]["user_likes"].boolValue
+                    photo.likesCount = item["likes"]["count"].intValue
+                    photos.append(photo)
+                }
+                RealmHelper.ask.saveObjects(photos)
+                handler(.success(photos))
+            })
     }
     
-        // MARK: - группы
-
+    // MARK: - группы
+    
     func getMyGroups(handler: @escaping (Result<[GroupRealm], Error>) -> Void) {
         customUrl = "groups.get"
         let fullUrl = baseUrl + customUrl
@@ -173,7 +174,7 @@ class Requests {
     func getGroupByQuery(handler: @escaping (Result<[GroupRealm], Error>) -> Void) {
         customUrl = "groups.search"
         let fullUrl = baseUrl + customUrl
-
+        
         let parameters: Parameters = [
             "access_token": accessToken,
             "v": apiVersion,
@@ -227,7 +228,7 @@ class Requests {
                 } catch {
                     handler(.failure(error))
                 }
-        })
+            })
     }
     
     func joinGroup(id: Int) {
@@ -249,15 +250,15 @@ class Requests {
         customUrl = "groups.leave"
         let fullUrl = baseUrl + customUrl
         let parameters: Parameters = [
-               "access_token": accessToken,
-               "v": apiVersion,
-               "group_id": "\(id)"
-           ]
-               
+            "access_token": accessToken,
+            "v": apiVersion,
+            "group_id": "\(id)"
+        ]
+        
         AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON { (response) in
-           
+            
         }
-         print("succsessfull left group \(id)")
+        print("succsessfull left group \(id)")
     }
     
     // MARK: - лайки
@@ -266,14 +267,14 @@ class Requests {
         customUrl = "likes.add"
         let fullUrl = baseUrl + customUrl
         let parameters: Parameters = [
-                "access_token": accessToken,
-                "v": apiVersion,
-                "owner_id": "\(ownerId)",
-                "item_id": "\(itemId)",
-                "type": "photo",
-               ]
+            "access_token": accessToken,
+            "v": apiVersion,
+            "owner_id": "\(ownerId)",
+            "item_id": "\(itemId)",
+            "type": "photo",
+        ]
         AF.request(fullUrl, method: .post, parameters: parameters, headers: nil).responseJSON { (response) in
-
+            
         }
     }
     
@@ -286,10 +287,10 @@ class Requests {
             "owner_id": "\(ownerId)",
             "item_id": "\(itemId)",
             "type": "photo",
-           ]
-               
+        ]
+        
         AF.request(fullUrl, method: .post, parameters: parameters, headers: nil).responseJSON { (response) in
-
+            
         }
     }
     
@@ -314,29 +315,29 @@ class Requests {
             AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON { (response) in
                 
                 let json = JSON(response.value!)
-                    
-                    let news = json["response"]["items"].map { FeedRecord(json: $0.1)}
-                    
-                    var sourceDetails = [SourceDetails]()
-                    
-                    let profiles = json["response"]["profiles"].arrayValue
-                    for item in profiles {
-                        let profile = SourceDetails()
-                        profile.id = item["id"].intValue
-                        profile.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
-                        profile.avatar = item["photo_400"].stringValue
-                        sourceDetails.append(profile)
-                    }
-                    let groups = json["response"]["groups"].arrayValue
-                    for item in groups {
-                        let group = SourceDetails()
-                        group.id = item["id"].intValue
-                        group.name = item["name"].stringValue
-                        group.avatar = item["photo_400"].stringValue
-                        sourceDetails.append(group)
-                    }
-                    completion(news, sourceDetails)
+                
+                let news = json["response"]["items"].map { FeedRecord(json: $0.1)}
+                
+                var sourceDetails = [SourceDetails]()
+                
+                let profiles = json["response"]["profiles"].arrayValue
+                for item in profiles {
+                    let profile = SourceDetails()
+                    profile.id = item["id"].intValue
+                    profile.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
+                    profile.avatar = item["photo_400"].stringValue
+                    sourceDetails.append(profile)
                 }
+                let groups = json["response"]["groups"].arrayValue
+                for item in groups {
+                    let group = SourceDetails()
+                    group.id = item["id"].intValue
+                    group.name = item["name"].stringValue
+                    group.avatar = item["photo_400"].stringValue
+                    sourceDetails.append(group)
+                }
+                completion(news, sourceDetails)
+            }
         }
     }
 }
