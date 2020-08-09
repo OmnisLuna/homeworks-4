@@ -12,13 +12,19 @@ import SwiftyJSON
 import Alamofire
 import RealmSwift
 
-//struct User {
-//    var id: Int
-//    var name: String
-//    var surname: String
-//    var avatar: String
-//
-//}
+struct User {
+    var id: Int
+    var name: String
+    var surname: String
+    var avatar: String
+
+    init(json: JSON) {
+        self.id = json["id"].intValue
+        self.name = json["first_name"].stringValue
+        self.surname = json["last_name"].stringValue
+        self.avatar = json["photo_400"].stringValue
+    }
+}
 
 class UserRealm: Object, Decodable {
     @objc dynamic var id: Int

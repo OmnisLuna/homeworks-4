@@ -49,14 +49,31 @@ class Requests {
             })
         }
     
-    func getUsersInfo(ids: Int, handler: @escaping (Result<[UserRealm], Error>) -> Void) {
+    func getUsersInfo(ids: String, completion: @escaping (_ users: [User]) -> ()) {
         customUrl = "users.get"
         let fullUrl = baseUrl + customUrl
         let parameters: Parameters = [
             "access_token": accessToken,
             "v": apiVersion,
             "user_ids": "\(ids)",
-            "fields": "photo_400, nickname",
+            "fields": "photo_400",
+        ]
+        
+        AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON { (response) in
+            let json = JSON(response.value!)
+            let users = json["response"].map { User(json: $0.1) }
+            completion(users)
+        }
+    }
+    
+    func getUsersInfoRealm(ids: [Int], handler: @escaping (Result<[UserRealm], Error>) -> Void) {
+        customUrl = "users.get"
+        let fullUrl = baseUrl + customUrl
+        let parameters: Parameters = [
+            "access_token": accessToken,
+            "v": apiVersion,
+            "user_ids": "\(ids)",
+            "fields": "photo_400",
         ]
         
         AF.request(fullUrl,
@@ -78,6 +95,8 @@ class Requests {
             }
         })
     }
+    
+    
     
     // MARK: - фотографии
     
@@ -276,49 +295,48 @@ class Requests {
     
     // MARK: Новости
     
-    func getNews (handler: @escaping (Result<[FeedRecordRealm], Error>) -> Void) {
+    func getNews(completion: @escaping (_ news: [FeedRecord], _ sourceDetails: [SourceDetails]) -> ()) {
         customUrl = "newsfeed.get"
         let fullUrl = baseUrl + customUrl
         
         let parameters: Parameters = [
             "access_token": accessToken,
             "v": apiVersion,
-            "count": "5",
+            "count": "50",
             "filters": "post, photo",
             "return_banned": "0",
             "max_photos": "1",
             "source_ids": "friends",
-            "fields": "id, first_name, last_name",
+            "fields": "id, first_name, last_name, photo_400",
         ]
         
-        AF.request(fullUrl,
-                   method: .get,
-                   parameters: parameters)
-                   .validate()
-                   .responseData(completionHandler: { response in
-            guard let json = try? JSON(response.data) else {
-                    handler(.failure(JsonError.responseError))
-                    return
+        DispatchQueue.global(qos: .utility).async {
+            AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON { (response) in
+                
+                let json = JSON(response.value!)
+                    
+                    let news = json["response"]["items"].map { FeedRecord(json: $0.1)}
+                    
+                    var sourceDetails = [SourceDetails]()
+                    
+                    let profiles = json["response"]["profiles"].arrayValue
+                    for item in profiles {
+                        let profile = SourceDetails()
+                        profile.id = item["id"].intValue
+                        profile.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
+                        profile.avatar = item["photo_400"].stringValue
+                        sourceDetails.append(profile)
+                    }
+                    let groups = json["response"]["groups"].arrayValue
+                    for item in groups {
+                        let group = SourceDetails()
+                        group.id = item["id"].intValue
+                        group.name = item["name"].stringValue
+                        group.avatar = item["photo_400"].stringValue
+                        sourceDetails.append(group)
+                    }
+                    completion(news, sourceDetails)
                 }
-            let items = json["response"]["items"].arrayValue
-            var news = [FeedRecordRealm]()
-            for item in items {
-                let newPost = FeedRecordRealm()
-                newPost.id = item["post_id"].intValue
-                newPost.sourceId = item["source_id"].intValue
-                newPost.publishDate = item["date"].intValue
-                newPost.type = item["type"].stringValue
-//                newPost.text = item["text"].stringValue
-//                newPost.photoUrl = item["sizes"][3]["url"].stringValue
-//                newPost.isLikedByMe = item["likes"]["user_likes"].boolValue
-//                newPost.likesCount = item["likes"]["count"].intValue
-//                newPost.commentsCount = item["comments"]["count"].intValue
-//                newPost.reportsCount = item["reposts"]["count"].intValue
-//                newPost.viewsCount = item["views"]["count"].intValue
-                news.append(newPost)
         }
-                    RealmHelper.ask.saveObjects(news)
-                    handler(.success(news))
-    })
     }
 }
