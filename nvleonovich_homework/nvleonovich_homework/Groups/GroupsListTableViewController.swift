@@ -1,12 +1,13 @@
 import UIKit
 import SDWebImage
 import RealmSwift
+import PromiseKit
 
 class GroupsListTableViewController: UITableViewController {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableGroupsView: UITableView!
-
+    
     var myGroups = [GroupRealm]()
     var token: NotificationToken?
     private var imageService: ImageService?
@@ -39,17 +40,36 @@ class GroupsListTableViewController: UITableViewController {
         requestData()
         RealmHelper.ask.refresh()
     }
+    //
+    //    private func requestData() {
+    //        Requests.go.getMyGroups { [weak self] result in
+    //            switch result {
+    //            case .success(var groups):
+    //                groups = RealmHelper.ask.getObjects(filter: "isMember == 1")
+    //                groups.sort{ $0.name < $1.name }
+    //                self?.myGroups = groups
+    //            case .failure(let error):
+    //                print(error)
+    //            }
+    //        }
+    //    }
     
     private func requestData() {
-        Requests.go.getMyGroups { [weak self] result in
-            switch result {
-            case .success(var groups):
-                groups = RealmHelper.ask.getObjects(filter: "isMember == 1")
-                groups.sort{ $0.name < $1.name }
-                self?.myGroups = groups
-            case .failure(let error):
-                print(error)
+        RequestsPromise.go.getMyGroupsPromise().get { [weak self] groups in
+            guard let self = self else {
+                return
             }
+            RealmHelper.ask.saveObjects(groups)
+            self.myGroups = RealmHelper.ask.getObjects(filter: "isMember == 1")
+            self.myGroups.sort{ $0.name < $1.name }
+            
+        }.done(on: .main) { [weak self] _ in
+            guard self != nil else {
+                return
+            }
+            self?.tableView.reloadData()
+        }.catch { error in
+            print(error)
         }
     }
     
@@ -68,7 +88,7 @@ class GroupsListTableViewController: UITableViewController {
         cell.avatar.image = imageService?.photo(atIndexpath: indexPath, byUrl: myGroups[indexPath.row].avatar ?? "placeholder-1-300x200.png")
         return cell
     }
-
+    
     @IBAction func openGroups(_ sender: Any) {
         let destination = GroupsSearchTableViewController()
         destination.requestData()
@@ -83,7 +103,7 @@ class GroupsListTableViewController: UITableViewController {
                 let group = allGroupsController.allGroups[indexPath.row].id
                 Requests.go.joinGroup(id: group)
                 RealmHelper.ask.changeIsMember(group, 1)
-                }
+            }
         }
     }
     
@@ -99,7 +119,7 @@ class GroupsListTableViewController: UITableViewController {
 }
 
 extension GroupsListTableViewController: UISearchBarDelegate {
-        
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         var sortedGroups: [GroupRealm] = RealmHelper.ask.getObjects(filter: "isMember == 1")
         sortedGroups.sort{ $0.name < $1.name }
