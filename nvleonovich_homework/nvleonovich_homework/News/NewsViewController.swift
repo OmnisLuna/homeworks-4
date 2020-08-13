@@ -9,12 +9,15 @@ class NewsViewController: UITableViewController {
     private var sourceDetails = Array<SourceDetails>()
     private var users = Array<User>()
     var token: NotificationToken?
+    private var imageService: ImageService?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         super.viewDidLoad()
         tableView.dataSource = self
         requestData()
+        imageService = ImageService(container: tableView)
     }
     
     private func requestData() {
@@ -71,7 +74,8 @@ class NewsViewController: UITableViewController {
         cell.ownerName.text = getSourceName(indexPath.row)
         let avatar = getSourceAvatar(indexPath.row)
         cell.postOwnerAvatar.sd_setImage(with: URL(string: avatar), placeholderImage: UIImage(named: "placeholder-1-300x200.png"))
-        cell.postPhoto.sd_setImage(with: URL(string: newsCard.photo ?? "placeholder-1-300x200.png"), placeholderImage: UIImage(named: "placeholder-1-300x200.png"))
+//        cell.postPhoto.sd_setImage(with: URL(string: newsCard.photo ?? "placeholder-1-300x200.png"), placeholderImage: UIImage(named: "placeholder-1-300x200.png"))
+        cell.postPhoto.image = imageService?.photo(atIndexpath: indexPath, byUrl: newsCard.photo ?? "placeholder-1-300x200.png")
 //        cell.postPhoto.image = myNews[indexPath.row].photo
     
         cell.publishDate.text = convertDate(newsCard.publishDate)

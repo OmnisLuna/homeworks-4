@@ -7,7 +7,7 @@ class GroupRealm: Object, Decodable {
     @objc dynamic var id: Int
     @objc dynamic var name: String
     @objc dynamic var isMember: Int
-    @objc dynamic var avatar: String
+    @objc dynamic var avatar: String?
     
     override class func primaryKey() -> String? {
         return "id"

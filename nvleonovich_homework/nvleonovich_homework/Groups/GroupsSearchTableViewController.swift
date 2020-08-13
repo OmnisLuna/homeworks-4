@@ -10,6 +10,7 @@ class GroupsSearchTableViewController: UITableViewController {
     var allGroups = [GroupRealm]()
     let realm = try! Realm()
     var token: NotificationToken?
+    private var imageService: ImageService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,6 +18,7 @@ class GroupsSearchTableViewController: UITableViewController {
         searchBar.delegate = self
         requestData()
         notificationsObserver()
+        imageService = ImageService(container: tableView)
     }
     
     func requestData() {
@@ -58,7 +60,8 @@ class GroupsSearchTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AllGroupCell", for: indexPath) as! GroupTableViewCell
         cell.myGroupName.text = allGroups[indexPath.row].name
-        cell.myGroupAvatar.sd_setImage(with: URL(string: allGroups[indexPath.row].avatar), placeholderImage: UIImage(named: "placeholder-1-300x200.png"))
+//        cell.myGroupAvatar.sd_setImage(with: URL(string: allGroups[indexPath.row].avatar ?? "placeholder-1-300x200.png"), placeholderImage: UIImage(named: "placeholder-1-300x200.png"))
+        cell.myGroupAvatar.image = imageService?.photo(atIndexpath: indexPath, byUrl: allGroups[indexPath.row].avatar ?? "placeholder-1-300x200.png")
         return cell
     }
 }

@@ -28,7 +28,7 @@ class SwipePhotoController: UIViewController {
             currentView.heartButton.isSelected = photos[photoIndex].isLikedByMe
             currentView.likesCount.text = "\(photos[photoIndex].likesCount)"
             currentView.likesCount.textColor = currentView.heartButton.isSelected ? #colorLiteral(red: 0.8094672561, green: 0, blue: 0.2113229036, alpha: 1)  : #colorLiteral(red: 0, green: 0.4539153576, blue: 1, alpha: 1)
-            currentView.image.sd_setImage(with: URL(string: photos[photoIndex].url), placeholderImage: UIImage(named: ".png"))
+            currentView.image.sd_setImage(with: URL(string: photos[photoIndex].url ?? "placeholder-1-300x200.png"))
             bufferView.alpha = 0
         }
     
@@ -65,7 +65,7 @@ class SwipePhotoController: UIViewController {
                 index = getSwipeRightIndex()
                 offset = -(view.frame.width + 20)
             }
-            bufferView.image.sd_setImage(with: URL(string: photos[index].url), placeholderImage: UIImage(named: ".png"))
+            bufferView.image.sd_setImage(with: URL(string: photos[index].url ?? "placeholder-1-300x200.png"))
             self.bufferView.transform = CGAffineTransform(translationX: translation.x + offset ,y: 0)
             
         case .ended:
