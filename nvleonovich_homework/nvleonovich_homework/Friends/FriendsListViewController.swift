@@ -65,7 +65,7 @@ class FriendsListViewController: UITableViewController {
         let fullname = "\(users[indexPath.row].name) " + "\(users[indexPath.row].surname)"
         cell.myFriendName.text = "\(fullname)"
 //        cell.myFriendAvatar.sd_setImage(with: URL(string: users[indexPath.row].avatar), placeholderImage: UIImage(named: "Portrait_Placeholder.png"))
-        cell.myFriendAvatar.image = imageService.photo(atIndexpath: indexPath, byUrl: user?.avatarUrl ?? "Portrait_Placeholder.png")
+        cell.myFriendAvatar.image = imageService?.photo(atIndexpath: indexPath, byUrl: users[indexPath.row].avatar ?? "Portrait_Placeholder.png")
         return cell
     }
     

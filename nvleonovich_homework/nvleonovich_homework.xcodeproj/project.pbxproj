@@ -38,6 +38,7 @@
 		04EC1145244526A5000B2E6D /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EC1144244526A5000B2E6D /* AvatarView.swift */; };
 		04F07F3824ABCB5A0073ABBB /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */; };
 		04F07F3A24ABCEA40073ABBB /* Requests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F07F3924ABCEA40073ABBB /* Requests.swift */; };
+		04FF2A5D24E5EC6B002B94A2 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FF2A5C24E5EC6B002B94A2 /* ImageService.swift */; };
 		2D4E8611B6D2E7835EE14408 /* Pods_nvleonovich_homework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66E374F94D279DCD3CB6927C /* Pods_nvleonovich_homework.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,7 @@
 		04EC1144244526A5000B2E6D /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		04F07F3924ABCEA40073ABBB /* Requests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Requests.swift; sourceTree = "<group>"; };
+		04FF2A5C24E5EC6B002B94A2 /* ImageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		66E374F94D279DCD3CB6927C /* Pods_nvleonovich_homework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nvleonovich_homework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D36AFDB6CEB4D827F7779BEC /* Pods-nvleonovich_homework.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nvleonovich_homework.release.xcconfig"; path = "Target Support Files/Pods-nvleonovich_homework/Pods-nvleonovich_homework.release.xcconfig"; sourceTree = "<group>"; };
 		FEE00ED8E788FBEE1670BF5F /* Pods-nvleonovich_homework.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nvleonovich_homework.debug.xcconfig"; path = "Target Support Files/Pods-nvleonovich_homework/Pods-nvleonovich_homework.debug.xcconfig"; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 		0423655224A0ED4E00CA72A2 /* JSONParsing */ = {
 			isa = PBXGroup;
 			children = (
+				04FF2A5C24E5EC6B002B94A2 /* ImageService.swift */,
 				04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */,
 				04F07F3924ABCEA40073ABBB /* Requests.swift */,
 			);
@@ -343,6 +346,7 @@
 				0461FC5824317E6A0049E9A8 /* GroupsSearchTableViewController.swift in Sources */,
 				04EC1145244526A5000B2E6D /* AvatarView.swift in Sources */,
 				049031052495829F004F3F43 /* Session.swift in Sources */,
+				04FF2A5D24E5EC6B002B94A2 /* ImageService.swift in Sources */,
 				0461FC5624317E430049E9A8 /* GroupsListTableViewController.swift in Sources */,
 				04000C3C2433F85E00E93B56 /* FriendsPhotoCollectionViewCell.swift in Sources */,
 				0461FC722431DB930049E9A8 /* FriendTableViewCell.swift in Sources */,

@@ -16,7 +16,7 @@ struct User {
     var id: Int
     var name: String
     var surname: String
-    var avatar: String
+    var avatar: String?
 
     init(json: JSON) {
         self.id = json["id"].intValue

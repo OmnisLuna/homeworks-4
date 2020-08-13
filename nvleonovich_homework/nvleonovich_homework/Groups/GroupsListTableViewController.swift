@@ -9,6 +9,7 @@ class GroupsListTableViewController: UITableViewController {
 
     var myGroups = [GroupRealm]()
     var token: NotificationToken?
+    private var imageService: ImageService?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,6 +17,7 @@ class GroupsListTableViewController: UITableViewController {
         searchBar.delegate = self
         requestData()
         notificationsObserver()
+        imageService = ImageService(container: tableView)
         }
     
     private func notificationsObserver() {
@@ -62,7 +64,8 @@ class GroupsListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupCell", for: indexPath) as! MyGroupTableViewCell
         cell.name.text = myGroups[indexPath.row].name
-        cell.avatar.sd_setImage(with: URL(string: myGroups[indexPath.row].avatar), placeholderImage: UIImage(named: "placeholder-1-300x200.png"))
+//        cell.avatar.sd_setImage(with: URL(string: myGroups[indexPath.row].avatar), placeholderImage: UIImage(named: "placeholder-1-300x200.png"))
+        cell.avatar.image = imageService?.photo(atIndexpath: indexPath, byUrl: myGroups[indexPath.row].avatar ?? "placeholder-1-300x200.png")
         return cell
     }
 

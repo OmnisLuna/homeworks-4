@@ -1,5 +1,5 @@
 import UIKit
-import SDWebImage
+//import SDWebImage
 import RealmSwift
 
 
@@ -9,12 +9,14 @@ class FriendsPhotoCollectionViewController: UICollectionViewController {
     let animation = Animations()
     var photos = [PhotoRealm]()
     var token: NotificationToken?
+    private var imageService: ImageService?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.delegate = self
         requestPhotosForTest()
         notificationsObserver()
+        imageService = ImageService(container: collectionView)
     }
     
     private func requestPhotosForTest() {
@@ -57,7 +59,8 @@ class FriendsPhotoCollectionViewController: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendPhotoCell", for: indexPath) as! FriendsPhotoCollectionViewCell
         cell.likesCount.text = "\(photos[indexPath.row].likesCount)"
         cell.heartButton.isSelected = photos[indexPath.row].isLikedByMe
-        cell.friendsPhoto.sd_setImage(with: URL(string: photos[indexPath.row].url), placeholderImage: UIImage(named: "placeholder-1-300x200.png"))
+//        cell.friendsPhoto.sd_setImage(with: URL(string: photos[indexPath.row].url), placeholderImage: UIImage(named: "placeholder-1-300x200.png"))
+        cell.friendsPhoto.image = imageService?.photo(atIndexpath: indexPath, byUrl: photos[indexPath.row].url ?? "placeholder-1-300x200.png")
         cell.likesCount.textColor = cell.heartButton.isSelected ? #colorLiteral(red: 0.8094672561, green: 0, blue: 0.2113229036, alpha: 1)  : #colorLiteral(red: 0, green: 0.4539153576, blue: 1, alpha: 1)
         
         //замыкание для тапа на ячейку
