@@ -8,6 +8,7 @@ pod 'SwiftyJSON'
 pod 'Alamofire'
 pod 'SDWebImage'
 pod 'RealmSwift'
+pod 'PromiseKit'
   # Pods for nvleonovich_homework
 
 end

@@ -1,5 +1,5 @@
 import UIKit
-import SDWebImage
+//import SDWebImage
 import RealmSwift
 
 class FriendsListViewController: UITableViewController {
@@ -10,13 +10,14 @@ class FriendsListViewController: UITableViewController {
     private var users = [UserRealm]()
     private var sectionTitles = [String]()
     var token: NotificationToken?
-    
+    private var imageService: ImageService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableFriendsView.dataSource = self
         searchBar.delegate = self
         requestData()
+        imageService = ImageService(container: tableView)
     }
     
     private func requestData() {
@@ -63,7 +64,8 @@ class FriendsListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Friend", for: indexPath) as! FriendTableViewCell
         let fullname = "\(users[indexPath.row].name) " + "\(users[indexPath.row].surname)"
         cell.myFriendName.text = "\(fullname)"
-        cell.myFriendAvatar.sd_setImage(with: URL(string: users[indexPath.row].avatar), placeholderImage: UIImage(named: "Portrait_Placeholder.png"))
+//        cell.myFriendAvatar.sd_setImage(with: URL(string: users[indexPath.row].avatar), placeholderImage: UIImage(named: "Portrait_Placeholder.png"))
+        cell.myFriendAvatar.image = imageService.photo(atIndexpath: indexPath, byUrl: user?.avatarUrl ?? "Portrait_Placeholder.png")
         return cell
     }
     
