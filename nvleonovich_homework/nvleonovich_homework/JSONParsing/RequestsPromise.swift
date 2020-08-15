@@ -30,7 +30,7 @@ class RequestsPromise {
                        method: .get,
                        parameters: parameters)
                 .validate()
-                .responseData(completionHandler: { responseData in
+                .responseData(queue: DispatchQueue.global(), completionHandler: { responseData in
                     guard let data = responseData.data else {
                         resolver.reject(JsonError.responseError)
                         return
@@ -38,9 +38,13 @@ class RequestsPromise {
                     let decoder = JSONDecoder()
                     do {
                         let requestResponse = try decoder.decode(GroupRealmResponse.self, from: data)
-                        resolver.fulfill(requestResponse.response.items)
+                        DispatchQueue.main.async {
+                            resolver.fulfill(requestResponse.response.items)
+                        }
                     } catch {
-                        resolver.reject(error)
+                        DispatchQueue.main.async {
+                            resolver.reject(error)
+                        }
                     }
                 })
         }

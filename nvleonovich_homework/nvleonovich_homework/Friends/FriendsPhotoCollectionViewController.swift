@@ -1,5 +1,4 @@
 import UIKit
-//import SDWebImage
 import RealmSwift
 
 
@@ -10,7 +9,7 @@ class FriendsPhotoCollectionViewController: UICollectionViewController {
     var photos = [PhotoRealm]()
     var token: NotificationToken?
     private var imageService: ImageService?
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.collectionView.delegate = self
@@ -44,24 +43,24 @@ class FriendsPhotoCollectionViewController: UICollectionViewController {
             }
         })
     }
-        
+    
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-        
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return photos.count
     }
-        
+    
     override func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendPhotoCell", for: indexPath) as! FriendsPhotoCollectionViewCell
+        
         cell.likesCount.text = "\(photos[indexPath.row].likesCount)"
-        cell.heartButton.isSelected = photos[indexPath.row].isLikedByMe
-//        cell.friendsPhoto.sd_setImage(with: URL(string: photos[indexPath.row].url), placeholderImage: UIImage(named: "placeholder-1-300x200.png"))
-        cell.friendsPhoto.image = imageService?.photo(atIndexpath: indexPath, byUrl: photos[indexPath.row].url ?? "placeholder-1-300x200.png")
         cell.likesCount.textColor = cell.heartButton.isSelected ? #colorLiteral(red: 0.8094672561, green: 0, blue: 0.2113229036, alpha: 1)  : #colorLiteral(red: 0, green: 0.4539153576, blue: 1, alpha: 1)
+        cell.heartButton.isSelected = photos[indexPath.row].isLikedByMe
+        cell.friendsPhoto.image = imageService?.photo(atIndexpath: indexPath, byUrl: photos[indexPath.row].url ?? "placeholder-1-300x200.png")
         
         //замыкание для тапа на ячейку
         cell.heartButtoonTap = { [weak self] in
@@ -96,10 +95,10 @@ class FriendsPhotoCollectionViewController: UICollectionViewController {
 }
 
 extension FriendsPhotoCollectionViewController: UICollectionViewDelegateFlowLayout {
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-            let cellWidth = (view.bounds.width - 15) / 2
-
-            return CGSize(width: cellWidth, height: cellWidth)
-        }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let cellWidth = (view.bounds.width - 15) / 2
+        
+        return CGSize(width: cellWidth, height: cellWidth)
+    }
 }

@@ -40,19 +40,6 @@ class GroupsListTableViewController: UITableViewController {
         requestData()
         RealmHelper.ask.refresh()
     }
-    //
-    //    private func requestData() {
-    //        Requests.go.getMyGroups { [weak self] result in
-    //            switch result {
-    //            case .success(var groups):
-    //                groups = RealmHelper.ask.getObjects(filter: "isMember == 1")
-    //                groups.sort{ $0.name < $1.name }
-    //                self?.myGroups = groups
-    //            case .failure(let error):
-    //                print(error)
-    //            }
-    //        }
-    //    }
     
     private func requestData() {
         RequestsPromise.go.getMyGroupsPromise().get { [weak self] groups in
@@ -83,9 +70,10 @@ class GroupsListTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MyGroupCell", for: indexPath) as! MyGroupTableViewCell
+        
         cell.name.text = myGroups[indexPath.row].name
-//        cell.avatar.sd_setImage(with: URL(string: myGroups[indexPath.row].avatar), placeholderImage: UIImage(named: "placeholder-1-300x200.png"))
         cell.avatar.image = imageService?.photo(atIndexpath: indexPath, byUrl: myGroups[indexPath.row].avatar ?? "placeholder-1-300x200.png")
+        
         return cell
     }
     
@@ -111,9 +99,11 @@ class GroupsListTableViewController: UITableViewController {
         if editingStyle == .delete {
             let group = myGroups[indexPath.row].id
             Requests.go.leaveGroup(id: group)
-            myGroups.remove(at: indexPath.row)
+            DispatchQueue.main.async {
+                self.myGroups.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             RealmHelper.ask.changeIsMember(group, 0)
+            }
         }
     }
 }

@@ -30,11 +30,12 @@ class Requests {
             "count": "50",
         ]
         
+        
         AF.request(fullUrl,
                    method: .get,
                    parameters: parameters)
             .validate()
-            .responseData(completionHandler: { responseData in
+            .responseData(queue: DispatchQueue.global(qos: .utility), completionHandler: { responseData in
                 guard let data = responseData.data else {
                     handler(.failure(JsonError.responseError))
                     return
@@ -42,12 +43,17 @@ class Requests {
                 let decoder = JSONDecoder()
                 do {
                     let requestResponse = try decoder.decode(UserRealmResponse.self, from: data)
-                    RealmHelper.ask.saveObjects(requestResponse.response.items)
-                    handler(.success(requestResponse.response.items))
+                    DispatchQueue.main.async {
+                        RealmHelper.ask.saveObjects(requestResponse.response.items)
+                        handler(.success(requestResponse.response.items))
+                    }
                 } catch {
-                    handler(.failure(error))
+                    DispatchQueue.main.async {
+                        handler(.failure(error))
+                    }
                 }
             })
+        
     }
     
     func getUsersInfo(ids: String, completion: @escaping (_ users: [User]) -> ()) {
@@ -60,10 +66,12 @@ class Requests {
             "fields": "photo_400",
         ]
         
-        AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON { (response) in
-            let json = JSON(response.value!)
+        AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON(queue: DispatchQueue.global()) { (response) in
+            let json = JSON(response.value)
             let users = json["response"].map { User(json: $0.1) }
-            completion(users)
+            DispatchQueue.main.async {
+                completion(users)
+            }
         }
     }
     
@@ -81,7 +89,7 @@ class Requests {
                    method: .get,
                    parameters: parameters)
             .validate()
-            .responseData(completionHandler: { responseData in
+            .responseData(queue: DispatchQueue.global(), completionHandler: { responseData in
                 guard let data = responseData.data else {
                     handler(.failure(JsonError.responseError))
                     return
@@ -89,10 +97,14 @@ class Requests {
                 let decoder = JSONDecoder()
                 do {
                     let requestResponse = try decoder.decode(UserRealmResponse.self, from: data)
-                    RealmHelper.ask.saveObjects(requestResponse.response.items)
-                    handler(.success(requestResponse.response.items))
+                    DispatchQueue.main.async {
+                        RealmHelper.ask.saveObjects(requestResponse.response.items)
+                        handler(.success(requestResponse.response.items))
+                    }
                 } catch {
-                    handler(.failure(error))
+                    DispatchQueue.main.async {
+                        handler(.failure(error))
+                    }
                 }
             })
     }
@@ -117,7 +129,7 @@ class Requests {
                    method: .get,
                    parameters: parameters)
             .validate()
-            .responseData(completionHandler: { response in
+            .responseData(queue: DispatchQueue.global(), completionHandler: { response in
                 guard let json = try? JSON(response.data) else {
                     handler(.failure(JsonError.responseError))
                     return
@@ -133,8 +145,10 @@ class Requests {
                     photo.likesCount = item["likes"]["count"].intValue
                     photos.append(photo)
                 }
-                RealmHelper.ask.saveObjects(photos)
-                handler(.success(photos))
+                DispatchQueue.main.async {
+                    RealmHelper.ask.saveObjects(photos)
+                    handler(.success(photos))
+                }
             })
     }
     
@@ -155,7 +169,7 @@ class Requests {
                    method: .get,
                    parameters: parameters)
             .validate()
-            .responseData(completionHandler: { responseData in
+            .responseData(queue: DispatchQueue.global(), completionHandler: { responseData in
                 guard let data = responseData.data else {
                     handler(.failure(JsonError.responseError))
                     return
@@ -163,14 +177,18 @@ class Requests {
                 let decoder = JSONDecoder()
                 do {
                     let requestResponse = try decoder.decode(GroupRealmResponse.self, from: data)
-                    RealmHelper.ask.saveObjects(requestResponse.response.items)
-                    handler(.success(requestResponse.response.items))
+                    DispatchQueue.main.async {
+                        RealmHelper.ask.saveObjects(requestResponse.response.items)
+                        handler(.success(requestResponse.response.items))
+                    }
                 } catch {
-                    handler(.failure(error))
+                    DispatchQueue.main.async {
+                        handler(.failure(error))
+                    }
                 }
             })
-        }
-
+    }
+    
     func getGroupByQuery(handler: @escaping (Result<[GroupRealm], Error>) -> Void) {
         customUrl = "groups.search"
         let fullUrl = baseUrl + customUrl
@@ -185,7 +203,7 @@ class Requests {
                    method: .get,
                    parameters: parameters)
             .validate()
-            .responseData(completionHandler: { responseData in
+            .responseData(queue: DispatchQueue.global(), completionHandler: { responseData in
                 guard let data = responseData.data else {
                     handler(.failure(JsonError.responseError))
                     return
@@ -193,10 +211,14 @@ class Requests {
                 let decoder = JSONDecoder()
                 do {
                     let requestResponse = try decoder.decode(GroupRealmResponse.self, from: data)
-                    RealmHelper.ask.saveObjects(requestResponse.response.items)
-                    handler(.success(requestResponse.response.items))
+                    DispatchQueue.main.async {
+                        RealmHelper.ask.saveObjects(requestResponse.response.items)
+                        handler(.success(requestResponse.response.items))
+                    }
                 } catch {
-                    handler(.failure(error))
+                    DispatchQueue.main.async {
+                        handler(.failure(error))
+                    }
                 }
             })
     }
@@ -215,7 +237,7 @@ class Requests {
                    method: .get,
                    parameters: parameters)
             .validate()
-            .responseData(completionHandler: { responseData in
+            .responseData(queue: DispatchQueue.global(), completionHandler: { responseData in
                 guard let data = responseData.data else {
                     handler(.failure(JsonError.responseError))
                     return
@@ -223,10 +245,14 @@ class Requests {
                 let decoder = JSONDecoder()
                 do {
                     let requestResponse = try decoder.decode(GroupRealmResponse.self, from: data)
-                    RealmHelper.ask.saveObjects(requestResponse.response.items)
-                    handler(.success(requestResponse.response.items))
+                    DispatchQueue.main.async {
+                        RealmHelper.ask.saveObjects(requestResponse.response.items)
+                        handler(.success(requestResponse.response.items))
+                    }
                 } catch {
-                    handler(.failure(error))
+                    DispatchQueue.main.async {
+                        handler(.failure(error))
+                    }
                 }
             })
     }
@@ -240,7 +266,7 @@ class Requests {
             "group_id": "\(id)"
         ]
         
-        AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON { (response) in
+        AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON(queue: DispatchQueue.global()) { (response) in
             
         }
         print("succsessfull joined group \(id)")
@@ -255,7 +281,7 @@ class Requests {
             "group_id": "\(id)"
         ]
         
-        AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON { (response) in
+        AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON(queue: DispatchQueue.global()) { (response) in
             
         }
         print("succsessfull left group \(id)")
@@ -273,7 +299,7 @@ class Requests {
             "item_id": "\(itemId)",
             "type": "photo",
         ]
-        AF.request(fullUrl, method: .post, parameters: parameters, headers: nil).responseJSON { (response) in
+        AF.request(fullUrl, method: .post, parameters: parameters, headers: nil).responseJSON(queue: DispatchQueue.global()) { (response) in
             
         }
     }
@@ -289,7 +315,7 @@ class Requests {
             "type": "photo",
         ]
         
-        AF.request(fullUrl, method: .post, parameters: parameters, headers: nil).responseJSON { (response) in
+        AF.request(fullUrl, method: .post, parameters: parameters, headers: nil).responseJSON(queue: DispatchQueue.global()) { (response) in
             
         }
     }
@@ -311,31 +337,31 @@ class Requests {
             "fields": "id, first_name, last_name, photo_400",
         ]
         
-        DispatchQueue.global(qos: .utility).async {
-            AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON { (response) in
-                
-                let json = JSON(response.value!)
-                
-                let news = json["response"]["items"].map { FeedRecord(json: $0.1)}
-                
-                var sourceDetails = [SourceDetails]()
-                
-                let profiles = json["response"]["profiles"].arrayValue
-                for item in profiles {
-                    let profile = SourceDetails()
-                    profile.id = item["id"].intValue
-                    profile.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
-                    profile.avatar = item["photo_400"].stringValue
-                    sourceDetails.append(profile)
-                }
-                let groups = json["response"]["groups"].arrayValue
-                for item in groups {
-                    let group = SourceDetails()
-                    group.id = item["id"].intValue
-                    group.name = item["name"].stringValue
-                    group.avatar = item["photo_400"].stringValue
-                    sourceDetails.append(group)
-                }
+        AF.request(fullUrl, method: .get, parameters: parameters, headers: nil).responseJSON(queue: DispatchQueue.global()) { (response) in
+            
+            let json = JSON(response.value!)
+            
+            let news = json["response"]["items"].map { FeedRecord(json: $0.1)}
+            
+            var sourceDetails = [SourceDetails]()
+            
+            let profiles = json["response"]["profiles"].arrayValue
+            for item in profiles {
+                let profile = SourceDetails()
+                profile.id = item["id"].intValue
+                profile.name = item["first_name"].stringValue + " " + item["last_name"].stringValue
+                profile.avatar = item["photo_400"].stringValue
+                sourceDetails.append(profile)
+            }
+            let groups = json["response"]["groups"].arrayValue
+            for item in groups {
+                let group = SourceDetails()
+                group.id = item["id"].intValue
+                group.name = item["name"].stringValue
+                group.avatar = item["photo_400"].stringValue
+                sourceDetails.append(group)
+            }
+            DispatchQueue.main.async {
                 completion(news, sourceDetails)
             }
         }
