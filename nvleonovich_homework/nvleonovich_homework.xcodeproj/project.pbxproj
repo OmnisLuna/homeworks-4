@@ -35,6 +35,7 @@
 		04B58553244483BA00B00AB1 /* AvatarShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B58552244483BA00B00AB1 /* AvatarShadow.swift */; };
 		04B9334D249ECBF600E97280 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9334C249ECBF600E97280 /* AuthorizationViewController.swift */; };
 		04BDB70124E73E6900545BD1 /* RequestsPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDB70024E73E6900545BD1 /* RequestsPromise.swift */; };
+		04BDB70324E758A700545BD1 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDB70224E758A700545BD1 /* DateConverter.swift */; };
 		04CDE87D244C8B8A00A43C3A /* SwipePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CDE87C244C8B8A00A43C3A /* SwipePhotoController.swift */; };
 		04EC1145244526A5000B2E6D /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EC1144244526A5000B2E6D /* AvatarView.swift */; };
 		04F07F3824ABCB5A0073ABBB /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */; };
@@ -74,6 +75,7 @@
 		04B58552244483BA00B00AB1 /* AvatarShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarShadow.swift; sourceTree = "<group>"; };
 		04B9334C249ECBF600E97280 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		04BDB70024E73E6900545BD1 /* RequestsPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsPromise.swift; sourceTree = "<group>"; };
+		04BDB70224E758A700545BD1 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		04CDE87C244C8B8A00A43C3A /* SwipePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipePhotoController.swift; sourceTree = "<group>"; };
 		04EC1144244526A5000B2E6D /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				04FF2A5C24E5EC6B002B94A2 /* ImageService.swift */,
 				04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */,
 				04F07F3924ABCEA40073ABBB /* Requests.swift */,
+				04BDB70224E758A700545BD1 /* DateConverter.swift */,
 			);
 			path = JSONParsing;
 			sourceTree = "<group>";
@@ -350,6 +353,7 @@
 				04EC1145244526A5000B2E6D /* AvatarView.swift in Sources */,
 				049031052495829F004F3F43 /* Session.swift in Sources */,
 				04FF2A5D24E5EC6B002B94A2 /* ImageService.swift in Sources */,
+				04BDB70324E758A700545BD1 /* DateConverter.swift in Sources */,
 				0461FC5624317E430049E9A8 /* GroupsListTableViewController.swift in Sources */,
 				04000C3C2433F85E00E93B56 /* FriendsPhotoCollectionViewCell.swift in Sources */,
 				0461FC722431DB930049E9A8 /* FriendTableViewCell.swift in Sources */,
