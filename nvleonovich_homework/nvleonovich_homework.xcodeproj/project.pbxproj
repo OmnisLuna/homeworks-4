@@ -34,8 +34,6 @@
 		04A914312430E435005ABD6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A9142F2430E435005ABD6A /* LaunchScreen.storyboard */; };
 		04B58553244483BA00B00AB1 /* AvatarShadow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B58552244483BA00B00AB1 /* AvatarShadow.swift */; };
 		04B9334D249ECBF600E97280 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9334C249ECBF600E97280 /* AuthorizationViewController.swift */; };
-		04BDB70124E73E6900545BD1 /* RequestsPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDB70024E73E6900545BD1 /* RequestsPromise.swift */; };
-		04BDB70324E758A700545BD1 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDB70224E758A700545BD1 /* DateConverter.swift */; };
 		04CDE87D244C8B8A00A43C3A /* SwipePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CDE87C244C8B8A00A43C3A /* SwipePhotoController.swift */; };
 		04EC1145244526A5000B2E6D /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EC1144244526A5000B2E6D /* AvatarView.swift */; };
 		04F07F3824ABCB5A0073ABBB /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */; };
@@ -74,8 +72,6 @@
 		04A914322430E435005ABD6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		04B58552244483BA00B00AB1 /* AvatarShadow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarShadow.swift; sourceTree = "<group>"; };
 		04B9334C249ECBF600E97280 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
-		04BDB70024E73E6900545BD1 /* RequestsPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsPromise.swift; sourceTree = "<group>"; };
-		04BDB70224E758A700545BD1 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
 		04CDE87C244C8B8A00A43C3A /* SwipePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipePhotoController.swift; sourceTree = "<group>"; };
 		04EC1144244526A5000B2E6D /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
@@ -141,11 +137,9 @@
 		0423655224A0ED4E00CA72A2 /* JSONParsing */ = {
 			isa = PBXGroup;
 			children = (
-				04BDB70024E73E6900545BD1 /* RequestsPromise.swift */,
 				04FF2A5C24E5EC6B002B94A2 /* ImageService.swift */,
 				04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */,
 				04F07F3924ABCEA40073ABBB /* Requests.swift */,
-				04BDB70224E758A700545BD1 /* DateConverter.swift */,
 			);
 			path = JSONParsing;
 			sourceTree = "<group>";
@@ -353,7 +347,6 @@
 				04EC1145244526A5000B2E6D /* AvatarView.swift in Sources */,
 				049031052495829F004F3F43 /* Session.swift in Sources */,
 				04FF2A5D24E5EC6B002B94A2 /* ImageService.swift in Sources */,
-				04BDB70324E758A700545BD1 /* DateConverter.swift in Sources */,
 				0461FC5624317E430049E9A8 /* GroupsListTableViewController.swift in Sources */,
 				04000C3C2433F85E00E93B56 /* FriendsPhotoCollectionViewCell.swift in Sources */,
 				0461FC722431DB930049E9A8 /* FriendTableViewCell.swift in Sources */,
@@ -364,7 +357,6 @@
 				04000C412433FFEE00E93B56 /* GroupTableViewCell.swift in Sources */,
 				04A914252430E434005ABD6A /* AppDelegate.swift in Sources */,
 				047FA50B244CA05A0058C140 /* FriendPhotoView.swift in Sources */,
-				04BDB70124E73E6900545BD1 /* RequestsPromise.swift in Sources */,
 				042053042455E57F008DD9AF /* FullSIzePhotoView.swift in Sources */,
 				0423655124A0ED1E00CA72A2 /* FeedRecord.swift in Sources */,
 				044F2D1A24490A0B00FDE5B2 /* ActivityCounterControl.swift in Sources */,

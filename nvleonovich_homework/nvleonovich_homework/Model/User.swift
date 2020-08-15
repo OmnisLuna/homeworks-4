@@ -30,7 +30,7 @@ class UserRealm: Object, Decodable {
     @objc dynamic var id: Int
     @objc dynamic var name: String
     @objc dynamic var surname: String
-    @objc dynamic var avatar: String?
+    @objc dynamic var avatar: String
     
     override class func primaryKey() -> String? {
         return "id"

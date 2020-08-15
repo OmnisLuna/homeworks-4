@@ -25,13 +25,11 @@ class SwipePhotoController: UIViewController {
     }
     
         private func configureViews() {
-            DispatchQueue.main.async {
-                self.currentView.heartButton.isSelected = self.photos[self.photoIndex].isLikedByMe
-                self.currentView.likesCount.text = "\(self.photos[self.photoIndex].likesCount)"
-                self.currentView.likesCount.textColor = self.currentView.heartButton.isSelected ? #colorLiteral(red: 0.8094672561, green: 0, blue: 0.2113229036, alpha: 1)  : #colorLiteral(red: 0, green: 0.4539153576, blue: 1, alpha: 1)
-                self.currentView.image.sd_setImage(with: URL(string: self.photos[self.photoIndex].url ?? "placeholder-1-300x200.png"))
-                self.bufferView.alpha = 0
-            }
+            currentView.heartButton.isSelected = photos[photoIndex].isLikedByMe
+            currentView.likesCount.text = "\(photos[photoIndex].likesCount)"
+            currentView.likesCount.textColor = currentView.heartButton.isSelected ? #colorLiteral(red: 0.8094672561, green: 0, blue: 0.2113229036, alpha: 1)  : #colorLiteral(red: 0, green: 0.4539153576, blue: 1, alpha: 1)
+            currentView.image.sd_setImage(with: URL(string: photos[photoIndex].url ?? "placeholder-1-300x200.png"))
+            bufferView.alpha = 0
         }
     
     private func getSwipeRightIndex() ->Int {
