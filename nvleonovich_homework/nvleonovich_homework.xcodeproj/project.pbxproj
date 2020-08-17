@@ -28,6 +28,7 @@
 		048F08D42445010500375D45 /* NewsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048F08D32445010500375D45 /* NewsCard.swift */; };
 		048F08D62445012B00375D45 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048F08D52445012B00375D45 /* NewsViewController.swift */; };
 		049031052495829F004F3F43 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049031042495829F004F3F43 /* Session.swift */; };
+		0495AF3524E9EDF80006DC73 /* NewRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0495AF3424E9EDF80006DC73 /* NewRecord.swift */; };
 		04A914252430E434005ABD6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A914242430E434005ABD6A /* AppDelegate.swift */; };
 		04A9142C2430E434005ABD6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04A9142A2430E434005ABD6A /* Main.storyboard */; };
 		04A9142E2430E435005ABD6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04A9142D2430E435005ABD6A /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		04B9334D249ECBF600E97280 /* AuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04B9334C249ECBF600E97280 /* AuthorizationViewController.swift */; };
 		04BDB70124E73E6900545BD1 /* RequestsPromise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDB70024E73E6900545BD1 /* RequestsPromise.swift */; };
 		04BDB70324E758A700545BD1 /* DateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDB70224E758A700545BD1 /* DateConverter.swift */; };
+		04BDB70524E8A32700545BD1 /* RepostNewsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04BDB70424E8A32700545BD1 /* RepostNewsCard.swift */; };
 		04CDE87D244C8B8A00A43C3A /* SwipePhotoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CDE87C244C8B8A00A43C3A /* SwipePhotoController.swift */; };
 		04EC1145244526A5000B2E6D /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EC1144244526A5000B2E6D /* AvatarView.swift */; };
 		04F07F3824ABCB5A0073ABBB /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */; };
@@ -66,6 +68,7 @@
 		048F08D32445010500375D45 /* NewsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCard.swift; sourceTree = "<group>"; };
 		048F08D52445012B00375D45 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		049031042495829F004F3F43 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		0495AF3424E9EDF80006DC73 /* NewRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRecord.swift; sourceTree = "<group>"; };
 		04A914212430E434005ABD6A /* nvleonovich_homework.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nvleonovich_homework.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04A914242430E434005ABD6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		04A9142B2430E434005ABD6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -76,6 +79,7 @@
 		04B9334C249ECBF600E97280 /* AuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationViewController.swift; sourceTree = "<group>"; };
 		04BDB70024E73E6900545BD1 /* RequestsPromise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestsPromise.swift; sourceTree = "<group>"; };
 		04BDB70224E758A700545BD1 /* DateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateConverter.swift; sourceTree = "<group>"; };
+		04BDB70424E8A32700545BD1 /* RepostNewsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepostNewsCard.swift; sourceTree = "<group>"; };
 		04CDE87C244C8B8A00A43C3A /* SwipePhotoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipePhotoController.swift; sourceTree = "<group>"; };
 		04EC1144244526A5000B2E6D /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
 		04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
@@ -130,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				04000C3E2433F94C00E93B56 /* User.swift */,
+				0495AF3424E9EDF80006DC73 /* NewRecord.swift */,
 				0423654C24A0ECBF00CA72A2 /* Photo.swift */,
 				0423654E24A0ECCB00CA72A2 /* Group.swift */,
 				0423655024A0ED1E00CA72A2 /* FeedRecord.swift */,
@@ -155,6 +160,7 @@
 			children = (
 				048F08D52445012B00375D45 /* NewsViewController.swift */,
 				048F08D32445010500375D45 /* NewsCard.swift */,
+				04BDB70424E8A32700545BD1 /* RepostNewsCard.swift */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -358,12 +364,14 @@
 				04000C3C2433F85E00E93B56 /* FriendsPhotoCollectionViewCell.swift in Sources */,
 				0461FC722431DB930049E9A8 /* FriendTableViewCell.swift in Sources */,
 				04000C3F2433F94C00E93B56 /* User.swift in Sources */,
+				0495AF3524E9EDF80006DC73 /* NewRecord.swift in Sources */,
 				048F08D62445012B00375D45 /* NewsViewController.swift in Sources */,
 				0461FC5224317CB30049E9A8 /* ProfileTabBarController.swift in Sources */,
 				04B9334D249ECBF600E97280 /* AuthorizationViewController.swift in Sources */,
 				04000C412433FFEE00E93B56 /* GroupTableViewCell.swift in Sources */,
 				04A914252430E434005ABD6A /* AppDelegate.swift in Sources */,
 				047FA50B244CA05A0058C140 /* FriendPhotoView.swift in Sources */,
+				04BDB70524E8A32700545BD1 /* RepostNewsCard.swift in Sources */,
 				04BDB70124E73E6900545BD1 /* RequestsPromise.swift in Sources */,
 				042053042455E57F008DD9AF /* FullSIzePhotoView.swift in Sources */,
 				0423655124A0ED1E00CA72A2 /* FeedRecord.swift in Sources */,

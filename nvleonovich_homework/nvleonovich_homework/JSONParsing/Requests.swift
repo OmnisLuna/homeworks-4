@@ -322,7 +322,7 @@ class Requests {
     
     // MARK: Новости
     
-    func getNews(completion: @escaping (_ news: [FeedRecord], _ sourceDetails: [SourceDetails]) -> ()) {
+    func getNewsOld(completion: @escaping (_ news: [FeedRecord], _ sourceDetails: [SourceDetails]) -> ()) {
         customUrl = "newsfeed.get"
         let fullUrl = baseUrl + customUrl
         
@@ -366,4 +366,62 @@ class Requests {
             }
         }
     }
+    
+    func getNews(handler: @escaping (Result<NewsList, Error>) -> Void) {
+        
+        customUrl = "newsfeed.get"
+        let fullUrl = baseUrl + customUrl
+        
+        let parameters: Parameters = [
+            "access_token": accessToken,
+            "v": apiVersion,
+            "count": "50",
+            "filters": "post",
+            "return_banned": "0",
+            "max_photos": "1",
+            "source_ids": "friends",
+            "fields": "id, first_name, last_name, photo_400",
+        ]
+        
+        AF.request(fullUrl,
+               method: .get,
+               parameters: parameters)
+        .validate()
+        .responseData(queue: DispatchQueue.global(), completionHandler: { responseData in
+            guard let data = responseData.data else {
+                handler(.failure(JsonError.responseError))
+                return
+            }
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let requestResponse = try decoder.decode(NewsListResponse.self, from: data)
+                var items = requestResponse.response.items
+                
+                for (index, item) in items.enumerated() {
+                    if item.sourceId < 0 {
+                        item.sourceGroup = requestResponse.response.source(groupId: item.sourceId)
+                    } else {
+                        item.sourceUser = requestResponse.response.source(userId: item.sourceId)
+                    }
+                    
+                    if (item.copyHistory?[0].sourceId ?? 0) < 0 {
+                        item.copyHistory?[0].sourceGroup = requestResponse.response.source(groupId: item.copyHistory?[0].sourceId ?? 0)
+                    } else {
+                        item.copyHistory?[0].sourceUser = requestResponse.response.source(userId: item.copyHistory?[0].sourceId ?? 0)
+                    }
+                    items[index] = item
+                }
+                
+                DispatchQueue.main.async {
+                    handler(.success(requestResponse.response))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    handler(.failure(error))
+                }
+            }
+        })
+    }
+    
 }
