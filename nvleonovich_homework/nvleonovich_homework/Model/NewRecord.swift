@@ -12,6 +12,10 @@ class NewRecord: Decodable {
     var postId: Int
     var sourceId: Int
     var date: Int
+    
+    var publishDate: String {
+        DateConverter.get.convertDate(date)
+    }
     var type: String
     var text: String
     
@@ -53,6 +57,9 @@ class NewRecord: Decodable {
         }
         var fromId: Int
         var date: Int
+        var publishDate: String {
+            DateConverter.get.convertDate(date)
+        }
         var postType: String
         var text: String
         var attachments: [AttachmentsRepost]?
@@ -93,6 +100,7 @@ class NewRecord: Decodable {
                     let height: Int
                     let url: String
                     let width: Int
+                    var aspectRatio: CGFloat { return CGFloat(height)/CGFloat(width) }
                 }
             }
         }
@@ -122,20 +130,31 @@ class NewRecord: Decodable {
 }
 
 struct NewsList: Decodable {
-    let items: [NewRecord]
-    let profiles: [Profile]
-    let groups: [Group]
+    var items: [NewRecord]
+    var profiles: [Profile]
+    var groups: [Group]
     let nextFrom: String
     
-    func source(userId: Int) -> Profile? {
-        let filteredProfiles = profiles.filter { $0.id == userId }
-        return filteredProfiles.first
+    mutating func addNewsToStart(new : NewsList){
+        self.items = new.items + self.items
+        self.profiles = new.profiles + self.profiles
+        self.groups = new.groups + self.groups
     }
-
-    func source(groupId: Int) -> Group? {
-        let filteredGroups = groups.filter { $0.id == -1*groupId }
-        return filteredGroups.first
+    mutating func addNewsToEnd(new : NewsList){
+        self.items =  self.items + new.items
+        self.profiles = self.profiles + new.profiles
+        self.groups = self.groups + new.groups
     }
+    
+//    func source(userId: Int) -> Profile? {
+//        let filteredProfiles = profiles.filter { $0.id == userId }
+//        return filteredProfiles.first
+//    }
+//
+//    func source(groupId: Int) -> Group? {
+//        let filteredGroups = groups.filter { $0.id == -1*groupId }
+//        return filteredGroups.first
+//    }
     
 }
 

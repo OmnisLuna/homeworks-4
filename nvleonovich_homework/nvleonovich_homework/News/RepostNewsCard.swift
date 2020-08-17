@@ -28,7 +28,7 @@ class RepostNewsCard: UITableViewCell {
             repostPhoto.isHidden = false
         }
         
-        publishDate.text = DateConverter.get.convertDate(newsCard.date)
+        publishDate.text = newsCard.publishDate
         postDescription.text = newsCard.text
         viewsCount.text = "\(newsCard.views.count)"
         likesCount.text = "\(newsCard.likes.count)"
@@ -37,6 +37,6 @@ class RepostNewsCard: UITableViewCell {
         
         repostDescription.text = newsCard.copyHistory?[0].text
         repostSourceName.text = newsCard.copyHistory?[0].sourceName
-        repostSourceDate.text = DateConverter.get.convertDate(newsCard.copyHistory?[0].date ?? 0)
+        repostSourceDate.text = newsCard.copyHistory?[0].publishDate
     }
 }
