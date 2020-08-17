@@ -16,5 +16,27 @@ class RepostNewsCard: UITableViewCell {
     @IBOutlet weak var sharingCount: UILabel!
     @IBOutlet weak var commentsCount: UILabel!
     @IBOutlet weak var repostSourceStack: UIStackView!
+    var newsCard: NewRecord?
     
+    func configure(with newsCard: NewRecord) {
+        self.newsCard = newsCard
+        ownerName.text = newsCard.sourceName
+        
+        if repostPhoto.image == nil {
+            repostPhoto.isHidden = true
+        } else {
+            repostPhoto.isHidden = false
+        }
+        
+        publishDate.text = DateConverter.get.convertDate(newsCard.date)
+        postDescription.text = newsCard.text
+        viewsCount.text = "\(newsCard.views.count)"
+        likesCount.text = "\(newsCard.likes.count)"
+        commentsCount.text = "\(newsCard.comments.count)"
+        sharingCount.text = "\(newsCard.reposts.count)"
+        
+        repostDescription.text = newsCard.copyHistory?[0].text
+        repostSourceName.text = newsCard.copyHistory?[0].sourceName
+        repostSourceDate.text = DateConverter.get.convertDate(newsCard.copyHistory?[0].date ?? 0)
+    }
 }
