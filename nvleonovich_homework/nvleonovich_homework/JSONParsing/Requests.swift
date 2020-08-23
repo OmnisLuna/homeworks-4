@@ -425,7 +425,6 @@ class Requests {
                         let source = groups.first(where: { $0.id == -copySourceId })
                         item.copyHistory?[0].sourceGroup = source
                     }
-                    print("akjdaksdhwka \(copySourceId)")
                 }
                 
                 DispatchQueue.main.async {

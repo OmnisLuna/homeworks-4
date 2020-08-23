@@ -91,15 +91,21 @@ class NewRecord: Decodable {
         struct AttachmentsRepost: Decodable {
             var type: String
             var photo: Photo?
-
+            
             struct Photo: Codable {
                 let id: Int
                 let sizes: [Sizes]
-
+                
                 struct Sizes: Codable {
                     let height: Int
                     let url: String
                     let width: Int
+                    var heightCG: CGFloat {
+                        return CGFloat(height)
+                    }
+                    var widhtCG: CGFloat {
+                        return CGFloat(width)
+                    }
                     var aspectRatio: CGFloat { return CGFloat(height)/CGFloat(width) }
                 }
             }
@@ -120,6 +126,14 @@ class NewRecord: Decodable {
             let height: Int
             let url: String
             let width: Int
+            
+            var heightCG: CGFloat {
+                return CGFloat(height)
+            }
+            var widhtCG: CGFloat {
+                return CGFloat(width)
+            }
+            var aspectRatio: CGFloat { return CGFloat(height)/CGFloat(width) }
         }
         
         struct Video: Codable {
