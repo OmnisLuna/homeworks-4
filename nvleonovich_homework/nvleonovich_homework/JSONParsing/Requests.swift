@@ -113,7 +113,7 @@ class Requests {
     
     // MARK: - фотографии
     
-    func getAllPhotosByOwnerId (ownerId: Int, handler: @escaping (Result<[PhotoRealm], Error>) -> Void) {
+    func getAllPhotosByOwnerIdRealm (ownerId: Int, handler: @escaping (Result<[PhotoRealm], Error>) -> Void) {
         customUrl = "photos.getAll"
         let fullUrl = baseUrl + customUrl
         
@@ -150,6 +150,42 @@ class Requests {
                     handler(.success(photos))
                 }
             })
+    }
+    
+    func getAllPhotosByOwnerId (ownerId: Int, handler: @escaping (Result<[Photo], Error>) -> Void) {
+        customUrl = "photos.getAll"
+        let fullUrl = baseUrl + customUrl
+        
+        let parameters: Parameters = [
+            "access_token": accessToken,
+            "v": apiVersion,
+            "count": "15",
+            "owner_id": "\(ownerId)", //без owner_id приходят фото авторизованного пользователя
+            "extended": "1",
+        ]
+        
+        AF.request(fullUrl,
+               method: .get,
+               parameters: parameters)
+        .validate()
+        .responseData(queue: DispatchQueue.global(), completionHandler: { responseData in
+            guard let data = responseData.data else {
+                handler(.failure(JsonError.responseError))
+                return
+            }
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            do {
+                let requestResponse = try decoder.decode(PhotoResponse.self, from: data)
+                DispatchQueue.main.async {
+                    handler(.success(requestResponse.response.items))
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    handler(.failure(error))
+                }
+            }
+        })
     }
     
     // MARK: - группы
@@ -434,7 +470,7 @@ class Requests {
                     }
                     
                 }
-                print("\(requestResponse)")
+//                print("\(requestResponse)")
                 
                 DispatchQueue.main.async {
                     completion(.success(requestResponse.response), requestResponse.response.nextFrom)
