@@ -22,7 +22,7 @@ class NewRecord: Decodable {
     var likes: Likes
     var comments: Comments
     var reposts: Reposts
-    var views: Views
+    var views: Views?
     
     var sourceUser: Profile?
     var sourceGroup: Group?
@@ -148,28 +148,6 @@ struct NewsList: Decodable {
     var profiles: [Profile]
     var groups: [Group]
     let nextFrom: String
-    
-    mutating func addNewsToStart(new : NewsList){
-        self.items = new.items + self.items
-        self.profiles = new.profiles + self.profiles
-        self.groups = new.groups + self.groups
-    }
-    mutating func addNewsToEnd(new : NewsList){
-        self.items =  self.items + new.items
-        self.profiles = self.profiles + new.profiles
-        self.groups = self.groups + new.groups
-    }
-    
-//    func source(userId: Int) -> Profile? {
-//        let filteredProfiles = profiles.filter { $0.id == userId }
-//        return filteredProfiles.first
-//    }
-//
-//    func source(groupId: Int) -> Group? {
-//        let filteredGroups = groups.filter { $0.id == -1*groupId }
-//        return filteredGroups.first
-//    }
-    
 }
 
 struct Profile: Codable {

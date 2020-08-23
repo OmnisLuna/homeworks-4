@@ -410,22 +410,31 @@ class Requests {
                     if item.sourceId > 0 {
                         let source = profiles.first(where: { $0.id == item.sourceId })
                         item.sourceUser = source
+//                        item.sourceAvatar = source?.photo400
+//                        item.sourceName = source?.firstName
                     } else {
-                        let source = groups.first(where: { $0.id == -item.sourceId })
+                        let source = groups.first(where: { $0.id == item.sourceId })
                         item.sourceGroup = source
                     }
                 }
                 
                 items.forEach { item in
                     guard let copySourceId = item.copyHistory?[0].sourceId else { return}
+//                    print("sjdks: \(item.copyHistory?[0].id ?? 0) id \(copySourceId)")
                     if copySourceId > 0 {
                         let source = profiles.first(where: { $0.id == copySourceId })
-                        item.copyHistory?[0].sourceUser = source
+                        guard var copySourceUser = item.copyHistory?[0].sourceUser else { return}
+                        copySourceUser = source!
+//                        print("source \(copySourceUser.id)")
                     } else {
-                        let source = groups.first(where: { $0.id == -copySourceId })
-                        item.copyHistory?[0].sourceGroup = source
+                        let source = groups.first(where: { $0.id == copySourceId })
+                        guard var copySourceGroup = item.copyHistory?[0].sourceGroup else { return}
+                        copySourceGroup = source!
+//                        print("source \(copySourceGroup.id)")
                     }
+                    
                 }
+                print("\(requestResponse)")
                 
                 DispatchQueue.main.async {
                     completion(.success(requestResponse.response), requestResponse.response.nextFrom)
