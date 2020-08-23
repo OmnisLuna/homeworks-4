@@ -27,19 +27,12 @@ class FriendsListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView,
                             didSelectRowAt indexPath: IndexPath) {
-        var user: UserRealm
-        let sortedUsers: [UserRealm] = RealmHelper.ask.getObjects()
-        if sortedUsers.isEmpty {
-            user = users[indexPath.row]
-        } else {
-            user = sortedUsers[indexPath.row]
-        }
-        let viewController = FriendsPhotoCollectionViewController()
-        viewController.currentUserId = user.id
-        navigationController?.pushViewController(viewController,
+        let user = users[indexPath.row]
+        let target = FriendsPhotoCollectionViewController()
+        target.currentUserId = user.id
+        navigationController?.pushViewController(target,
                                                  animated: true)
     }
-    
     
     //friends table rows
     
