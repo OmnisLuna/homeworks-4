@@ -367,21 +367,27 @@ class Requests {
         }
     }
     
-    func getNews(handler: @escaping (Result<NewsList, Error>) -> Void) {
+    func getNews(startFrom: String = "",
+    startTime: Int? = nil, completion: @escaping (Result<NewsList, Error>, String?) -> Void) {
         
         customUrl = "newsfeed.get"
         let fullUrl = baseUrl + customUrl
         
-        let parameters: Parameters = [
+        var parameters: Parameters = [
             "access_token": accessToken,
             "v": apiVersion,
-            "count": "50",
+            "count": "10",
             "filters": "post",
             "return_banned": "0",
             "max_photos": "1",
             "source_ids": "friends",
             "fields": "id, first_name, last_name, photo_400",
+            "start_from": startFrom,
         ]
+        
+        if let startTime = startTime {
+            parameters["start_time"] = startTime
+        }
         
         AF.request(fullUrl,
                method: .get,
@@ -389,39 +395,55 @@ class Requests {
         .validate()
         .responseData(queue: DispatchQueue.global(), completionHandler: { responseData in
             guard let data = responseData.data else {
-                handler(.failure(JsonError.responseError))
+                completion(.failure(JsonError.responseError), nil)
                 return
             }
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
             do {
                 let requestResponse = try decoder.decode(NewsListResponse.self, from: data)
-                var items = requestResponse.response.items
+                let items = requestResponse.response.items
+                let profiles = requestResponse.response.profiles
+                let groups = requestResponse.response.groups
                 
-                for (index, item) in items.enumerated() {
-                    if item.sourceId < 0 {
-                        item.sourceGroup = requestResponse.response.source(groupId: item.sourceId)
+                items.forEach { item in
+                    if item.sourceId > 0 {
+                        let source = profiles.first(where: { $0.id == item.sourceId })
+                        item.sourceUser = source
+//                        item.sourceAvatar = source?.photo400
+//                        item.sourceName = source?.firstName
                     } else {
-                        item.sourceUser = requestResponse.response.source(userId: item.sourceId)
+                        let source = groups.first(where: { $0.id == item.sourceId })
+                        item.sourceGroup = source
                     }
-                    
-                    if (item.copyHistory?[0].sourceId ?? 0) < 0 {
-                        item.copyHistory?[0].sourceGroup = requestResponse.response.source(groupId: item.copyHistory?[0].sourceId ?? 0)
-                    } else {
-                        item.copyHistory?[0].sourceUser = requestResponse.response.source(userId: item.copyHistory?[0].sourceId ?? 0)
-                    }
-                    items[index] = item
                 }
                 
+                items.forEach { item in
+                    guard let copySourceId = item.copyHistory?[0].sourceId else { return}
+//                    print("sjdks: \(item.copyHistory?[0].id ?? 0) id \(copySourceId)")
+                    if copySourceId > 0 {
+                        let source = profiles.first(where: { $0.id == copySourceId })
+                        guard var copySourceUser = item.copyHistory?[0].sourceUser else { return}
+                        copySourceUser = source!
+//                        print("source \(copySourceUser.id)")
+                    } else {
+                        let source = groups.first(where: { $0.id == copySourceId })
+                        guard var copySourceGroup = item.copyHistory?[0].sourceGroup else { return}
+                        copySourceGroup = source!
+//                        print("source \(copySourceGroup.id)")
+                    }
+                    
+                }
+                print("\(requestResponse)")
+                
                 DispatchQueue.main.async {
-                    handler(.success(requestResponse.response))
+                    completion(.success(requestResponse.response), requestResponse.response.nextFrom)
                 }
             } catch {
                 DispatchQueue.main.async {
-                    handler(.failure(error))
+                    completion(.failure(error), nil)
                 }
             }
         })
     }
-    
 }

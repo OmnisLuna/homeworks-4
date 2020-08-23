@@ -12,13 +12,17 @@ class NewRecord: Decodable {
     var postId: Int
     var sourceId: Int
     var date: Int
+    
+    var publishDate: String {
+        DateConverter.get.convertDate(date)
+    }
     var type: String
     var text: String
     
     var likes: Likes
     var comments: Comments
     var reposts: Reposts
-    var views: Views
+    var views: Views?
     
     var sourceUser: Profile?
     var sourceGroup: Group?
@@ -53,6 +57,9 @@ class NewRecord: Decodable {
         }
         var fromId: Int
         var date: Int
+        var publishDate: String {
+            DateConverter.get.convertDate(date)
+        }
         var postType: String
         var text: String
         var attachments: [AttachmentsRepost]?
@@ -84,15 +91,22 @@ class NewRecord: Decodable {
         struct AttachmentsRepost: Decodable {
             var type: String
             var photo: Photo?
-
+            
             struct Photo: Codable {
                 let id: Int
                 let sizes: [Sizes]
-
+                
                 struct Sizes: Codable {
                     let height: Int
                     let url: String
                     let width: Int
+                    var heightCG: CGFloat {
+                        return CGFloat(height)
+                    }
+                    var widhtCG: CGFloat {
+                        return CGFloat(width)
+                    }
+                    var aspectRatio: CGFloat { return CGFloat(height)/CGFloat(width) }
                 }
             }
         }
@@ -112,6 +126,14 @@ class NewRecord: Decodable {
             let height: Int
             let url: String
             let width: Int
+            
+            var heightCG: CGFloat {
+                return CGFloat(height)
+            }
+            var widhtCG: CGFloat {
+                return CGFloat(width)
+            }
+            var aspectRatio: CGFloat { return CGFloat(height)/CGFloat(width) }
         }
         
         struct Video: Codable {
@@ -122,21 +144,10 @@ class NewRecord: Decodable {
 }
 
 struct NewsList: Decodable {
-    let items: [NewRecord]
-    let profiles: [Profile]
-    let groups: [Group]
+    var items: [NewRecord]
+    var profiles: [Profile]
+    var groups: [Group]
     let nextFrom: String
-    
-    func source(userId: Int) -> Profile? {
-        let filteredProfiles = profiles.filter { $0.id == userId }
-        return filteredProfiles.first
-    }
-
-    func source(groupId: Int) -> Group? {
-        let filteredGroups = groups.filter { $0.id == -1*groupId }
-        return filteredGroups.first
-    }
-    
 }
 
 struct Profile: Codable {
