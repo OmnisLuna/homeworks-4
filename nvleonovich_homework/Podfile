@@ -9,6 +9,7 @@ pod 'Alamofire'
 pod 'SDWebImage'
 pod 'RealmSwift'
 pod 'PromiseKit'
+pod 'Texture'
   # Pods for nvleonovich_homework
 
 end

@@ -15,6 +15,8 @@
 		0423654D24A0ECBF00CA72A2 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423654C24A0ECBF00CA72A2 /* Photo.swift */; };
 		0423654F24A0ECCB00CA72A2 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423654E24A0ECCB00CA72A2 /* Group.swift */; };
 		0423655124A0ED1E00CA72A2 /* FeedRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423655024A0ED1E00CA72A2 /* FeedRecord.swift */; };
+		042BF32A24F2CD4500BCDE8E /* AsyncImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042BF32924F2CD4500BCDE8E /* AsyncImageView.swift */; };
+		042BF32C24F2D2C200BCDE8E /* FriendPhotosNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042BF32B24F2D2C200BCDE8E /* FriendPhotosNode.swift */; };
 		044F2D1A24490A0B00FDE5B2 /* ActivityCounterControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F2D1924490A0B00FDE5B2 /* ActivityCounterControl.swift */; };
 		044F2D1C244931D500FDE5B2 /* Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044F2D1B244931D500FDE5B2 /* Animations.swift */; };
 		0461FC5224317CB30049E9A8 /* ProfileTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0461FC5124317CB30049E9A8 /* ProfileTabBarController.swift */; };
@@ -55,6 +57,8 @@
 		0423654C24A0ECBF00CA72A2 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		0423654E24A0ECCB00CA72A2 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		0423655024A0ED1E00CA72A2 /* FeedRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedRecord.swift; sourceTree = "<group>"; };
+		042BF32924F2CD4500BCDE8E /* AsyncImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImageView.swift; sourceTree = "<group>"; };
+		042BF32B24F2D2C200BCDE8E /* FriendPhotosNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendPhotosNode.swift; sourceTree = "<group>"; };
 		044F2D1924490A0B00FDE5B2 /* ActivityCounterControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCounterControl.swift; sourceTree = "<group>"; };
 		044F2D1B244931D500FDE5B2 /* Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animations.swift; sourceTree = "<group>"; };
 		0461FC5124317CB30049E9A8 /* ProfileTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTabBarController.swift; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 				042053032455E57F008DD9AF /* FullSIzePhotoView.swift */,
 				04CDE87C244C8B8A00A43C3A /* SwipePhotoController.swift */,
 				047FA50A244CA05A0058C140 /* FriendPhotoView.swift */,
+				042BF32B24F2D2C200BCDE8E /* FriendPhotosNode.swift */,
 			);
 			path = Friends;
 			sourceTree = "<group>";
@@ -151,6 +156,7 @@
 				04F07F3724ABCB5A0073ABBB /* RealmHelper.swift */,
 				04F07F3924ABCEA40073ABBB /* Requests.swift */,
 				04BDB70224E758A700545BD1 /* DateConverter.swift */,
+				042BF32924F2CD4500BCDE8E /* AsyncImageView.swift */,
 			);
 			path = JSONParsing;
 			sourceTree = "<group>";
@@ -361,6 +367,7 @@
 				04FF2A5D24E5EC6B002B94A2 /* ImageService.swift in Sources */,
 				04BDB70324E758A700545BD1 /* DateConverter.swift in Sources */,
 				0461FC5624317E430049E9A8 /* GroupsListTableViewController.swift in Sources */,
+				042BF32A24F2CD4500BCDE8E /* AsyncImageView.swift in Sources */,
 				04000C3C2433F85E00E93B56 /* FriendsPhotoCollectionViewCell.swift in Sources */,
 				0461FC722431DB930049E9A8 /* FriendTableViewCell.swift in Sources */,
 				04000C3F2433F94C00E93B56 /* User.swift in Sources */,
@@ -377,6 +384,7 @@
 				0423655124A0ED1E00CA72A2 /* FeedRecord.swift in Sources */,
 				044F2D1A24490A0B00FDE5B2 /* ActivityCounterControl.swift in Sources */,
 				044F2D1C244931D500FDE5B2 /* Animations.swift in Sources */,
+				042BF32C24F2D2C200BCDE8E /* FriendPhotosNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

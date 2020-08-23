@@ -25,6 +25,21 @@ class FriendsListViewController: UITableViewController {
         return 1
     }
     
+//    override func tableView(_ tableView: UITableView,
+//                            didSelectRowAt indexPath: IndexPath) {
+//        var user: VKUser? = nil
+//        if filteredUsers.isEmpty {
+//            let sectionTitle = sectionTitles[indexPath.section]
+//            user = userGroups[sectionTitle]?[indexPath.row]
+//        } else {
+//            user = filteredUsers[indexPath.row]
+//        }
+//        let viewController = FriendPhotosCollectionViewController()
+//        viewController.userId = user!.userId
+//        navigationController?.pushViewController(viewController,
+//                                                 animated: true)
+//    }
+    
     
     //friends table rows
     

@@ -1,5 +1,4 @@
 import UIKit
-import TTTAttributedLabel
 
 class NewsViewController: UITableViewController {
     

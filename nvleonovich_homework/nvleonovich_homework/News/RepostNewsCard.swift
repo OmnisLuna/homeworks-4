@@ -115,7 +115,8 @@ class RepostNewsCard: UITableViewCell {
             DispatchQueue.main.async {
                 self.repostTextHeightConstraint.constant = .greatestFiniteMagnitude
                 self.resizeTextViewButton.setTitle(self.moreText, for: .normal)
-            self.layoutIfNeeded()
+                self.layoutIfNeeded()
+                self.reloadInputViews()
                 self.textViewExpanded = true
             }
             
@@ -124,16 +125,19 @@ class RepostNewsCard: UITableViewCell {
             if height > 100 {
                 self.repostTextHeightConstraint.constant = 100
                 DispatchQueue.main.async {
+                    self.reloadInputViews()
                 self.layoutIfNeeded()
                 }
             } else {
                 DispatchQueue.main.async {
                 self.repostTextHeightConstraint.constant = .greatestFiniteMagnitude
+                    self.reloadInputViews()
                 self.layoutIfNeeded()
                 }
             }
             DispatchQueue.main.async {
                 self.resizeTextViewButton.setTitle(self.lessText, for: .normal)
+                self.reloadInputViews()
                 self.layoutIfNeeded()
             }
             
