@@ -6,7 +6,7 @@ import AsyncDisplayKit
 class FriendsPhotoCollectionViewController: ASDKViewController<ASCollectionNode> {
     
     var currentUserId: Int = 0
-    let animation = Animations()
+//    let animation = Animations()
     var photos = [PhotoRealm]()
 //    var token: NotificationToken?
 //    private var imageService: ImageService?
@@ -21,9 +21,9 @@ class FriendsPhotoCollectionViewController: ASDKViewController<ASCollectionNode>
         collectionNode.dataSource = self
         collectionNode.delegate = self
     }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        self.init(coder: aDecoder)
     }
     
     override func viewDidLoad() {

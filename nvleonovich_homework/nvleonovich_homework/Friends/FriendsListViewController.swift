@@ -25,20 +25,20 @@ class FriendsListViewController: UITableViewController {
         return 1
     }
     
-//    override func tableView(_ tableView: UITableView,
-//                            didSelectRowAt indexPath: IndexPath) {
-//        var user: VKUser? = nil
-//        if filteredUsers.isEmpty {
-//            let sectionTitle = sectionTitles[indexPath.section]
-//            user = userGroups[sectionTitle]?[indexPath.row]
-//        } else {
-//            user = filteredUsers[indexPath.row]
-//        }
-//        let viewController = FriendPhotosCollectionViewController()
-//        viewController.userId = user!.userId
-//        navigationController?.pushViewController(viewController,
-//                                                 animated: true)
-//    }
+    override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
+        var user: UserRealm
+        let sortedUsers: [UserRealm] = RealmHelper.ask.getObjects()
+        if sortedUsers.isEmpty {
+            user = users[indexPath.row]
+        } else {
+            user = sortedUsers[indexPath.row]
+        }
+        let viewController = FriendsPhotoCollectionViewController()
+        viewController.currentUserId = user.id
+        navigationController?.pushViewController(viewController,
+                                                 animated: true)
+    }
     
     
     //friends table rows
@@ -55,15 +55,15 @@ class FriendsListViewController: UITableViewController {
         return cell
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "getFriendPhotos" {
-            guard let target = segue.destination as? FriendsPhotoCollectionViewController,
-                let selectedIndexPath = tableView.indexPathForSelectedRow else {
-                    return
-            }
-            target.currentUserId = users[selectedIndexPath.row].id
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "getFriendPhotos" {
+//            guard let target = segue.destination as? FriendsPhotoCollectionViewController,
+//                let selectedIndexPath = tableView.indexPathForSelectedRow else {
+//                    return
+//            }
+//            target.currentUserId = users[selectedIndexPath.row].id
+//        }
+//    }
     
     private func getFullName(_ name: String, _ surname: String) -> String {
         let fullName = "\(name) " + "\(surname)"
