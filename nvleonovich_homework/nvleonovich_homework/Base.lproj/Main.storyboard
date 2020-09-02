@@ -295,7 +295,6 @@
                                     <outlet property="avatarShadow" destination="q0p-cw-jF8" id="5dD-9X-uXU"/>
                                     <outlet property="myFriendAvatar" destination="IM7-81-gWs" id="e6u-fA-oQi"/>
                                     <outlet property="myFriendName" destination="3Cx-S3-H6X" id="4gF-mW-o8k"/>
-                                    <segue destination="S4i-uY-3hg" kind="show" identifier="getFriendPhotos" id="Fvz-Hm-4ju"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -317,9 +316,9 @@
         <!--Friend's photos-->
         <scene sceneID="DzU-ep-1An">
             <objects>
-                <collectionViewController title="Friend's photos" id="S4i-uY-3hg" customClass="FriendsPhotoCollectionViewController" customModule="nvleonovich_homework" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController storyboardIdentifier="FriendsPhotoCollectionViewController" title="Friend's photos" id="S4i-uY-3hg" customClass="FriendsPhotoCollectionViewController" customModule="nvleonovich_homework" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="uoH-bn-WPC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="5" id="8kb-a0-iwe">
@@ -933,13 +932,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="ewP-Zu-BjK" userLabel="Left Photo View" customClass="FullSIzePhotoView" customModule="nvleonovich_homework" customModuleProvider="target">
-                                <rect key="frame" x="10" y="66" width="394" height="683"/>
+                                <rect key="frame" x="10" y="10" width="394" height="788"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="S3Q-wr-NqW" userLabel="Left Image View">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="683"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="788"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="5J3-uI-MCl">
-                                        <rect key="frame" x="336.5" y="640" width="47.5" height="33"/>
+                                        <rect key="frame" x="336.5" y="745" width="47.5" height="33"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQB-cB-agx">
                                                 <rect key="frame" x="0.0" y="1" width="13" height="31.5"/>
@@ -986,13 +985,13 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="OJk-jR-JsC" customClass="FullSIzePhotoView" customModule="nvleonovich_homework" customModuleProvider="target">
-                                <rect key="frame" x="10" y="66" width="394" height="683"/>
+                                <rect key="frame" x="10" y="10" width="394" height="788"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vGm-rU-zNW">
-                                        <rect key="frame" x="0.0" y="0.0" width="394" height="683"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="394" height="788"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="Wbb-9S-ikX">
-                                        <rect key="frame" x="336.5" y="640" width="47.5" height="33"/>
+                                        <rect key="frame" x="336.5" y="745" width="47.5" height="33"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDO-vt-V6m">
                                                 <rect key="frame" x="0.0" y="1" width="13" height="31.5"/>
